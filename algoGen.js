@@ -47,14 +47,14 @@ const distances = {
   "bornan": getCityDistance("BORDEAUX", "NANTES"),
   "borpar": getCityDistance("BORDEAUX", "PARIS"),
   "bortou": getCityDistance("BORDEAUX", "TOULOUSE"),
-  "lillil": getCityDistance("LILLE", "BORDEAUX"),    // lille
+  "lillil": getCityDistance("LILLE", "LILLE"),    // lille
   "lillyo": getCityDistance("LILLE", "LYON"),
   "lilmar": getCityDistance("LILLE", "MARSEILLE"),
   "lilnan": getCityDistance("LILLE", "NANTES"),
   "lilpar": getCityDistance("LILLE", "PARIS"),
   "liltou": getCityDistance("LILLE", "TOULOUSE"),
   "lyolyo": getCityDistance("LYON", "LYON"),    // Lyon
-  "lyomar": getCityDistance("LYON", "BORDEAUX"),
+  "lyomar": getCityDistance("LYON", "MARSEILLE"),
   "lyonan": getCityDistance("LYON", "NANTES"),
   "lyopar": getCityDistance("LYON", "PARIS"),
   "lyotou": getCityDistance("LYON", "TOULOUSE"),
