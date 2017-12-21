@@ -1,6 +1,8 @@
 const app = require('express')();
 const API = require('json-api');
 const mongoose = require('mongoose');
+const { algoGen, addCity, getCities, getDistances } = require('./algoGen');
+
 require('dotenv').config();
 
 const APIError = API.types.Error;
@@ -46,8 +48,13 @@ app.options('*', (req, res) => {
 
 app.get('/api', front.docsRequest.bind(front));
 
-app.get('/algo-gen/start/:cityNameStart/end/:cityNameEnd', (req, res) => {
-  res.send(`${JSON.stringify(req.params)}`);
+
+app.get('/algogen', (req, res) => {
+  const start = req.query.start;
+  const end = req.query.end;
+  const path = algoGen(start, end);
+
+  res.json(path);
 });
 
 app.route(`/api/:type(${db.join('|')})`).get(apiReqHandler).post(apiReqHandler)
