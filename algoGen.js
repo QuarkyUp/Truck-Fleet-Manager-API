@@ -41,33 +41,33 @@ const city = [      // contains the resources to harvest
 
 const distances = {
   "borbor": getCityDistance("BORDEAUX", "BORDEAUX"),    // bordeaux
-  "borlil": 806,
-  "borlyo": 556,
-  "bormar": 645,
-  "bornan": 353,
-  "borpar": 580,
-  "bortou": 245,
-  "lillil": 10,    // lille
-  "lillyo": 691,
-  "lilmar": 1000,
-  "lilnan": 600,
-  "lilpar": 225,
-  "liltou": 894,
-  "lyolyo": 10,    // Lyon
-  "lyomar": 314,
-  "lyonan": 685,
-  "lyopar": 491,
-  "lyotou": 537,
-  "marmar": 10,    // Marseille
-  "marnan": 985,
-  "marpar": 774,
-  "martou": 403,
-  "nannan": 10,    // Nantes
-  "nanpar": 384,
-  "nantou": 586,
-  "parpar": 10,    // Paris
-  "partou": 679,
-  "toutou": 679    // Toulouse
+  "borlil": getCityDistance("BORDEAUX", "LILLE"),
+  "borlyo": getCityDistance("BORDEAUX", "LYON"),
+  "bormar": getCityDistance("BORDEAUX", "MARSEILLE"),
+  "bornan": getCityDistance("BORDEAUX", "NANTES"),
+  "borpar": getCityDistance("BORDEAUX", "PARIS"),
+  "bortou": getCityDistance("BORDEAUX", "TOULOUSE"),
+  "lillil": getCityDistance("LILLE", "BORDEAUX"),    // lille
+  "lillyo": getCityDistance("LILLE", "LYON"),
+  "lilmar": getCityDistance("LILLE", "MARSEILLE"),
+  "lilnan": getCityDistance("LILLE", "NANTES"),
+  "lilpar": getCityDistance("LILLE", "PARIS"),
+  "liltou": getCityDistance("LILLE", "TOULOUSE"),
+  "lyolyo": getCityDistance("LYON", "LYON"),    // Lyon
+  "lyomar": getCityDistance("LYON", "BORDEAUX"),
+  "lyonan": getCityDistance("LYON", "NANTES"),
+  "lyopar": getCityDistance("LYON", "PARIS"),
+  "lyotou": getCityDistance("LYON", "TOULOUSE"),
+  "marmar": getCityDistance("MARSEILLE", "MARSEILLE"),    // Marseille
+  "marnan": getCityDistance("MARSEILLE", "NANTES"),
+  "marpar": getCityDistance("MARSEILLE", "PARIS"),
+  "martou": getCityDistance("MARSEILLE", "TOULOUSE"),
+  "nannan": getCityDistance("NANTES", "NANTES"),    // Nantes
+  "nanpar": getCityDistance("NANTES", "PARIS"),
+  "nantou": getCityDistance("NANTES", "TOULOUSE"),
+  "parpar": getCityDistance("PARIS", "PARIS"),    // Paris
+  "partou": getCityDistance("PARIS", "TOULOUSE"),
+  "toutou": getCityDistance("TOULOUSE", "TOULOUSE")    // Toulouse
 };
 
 const limitKM = 3500;           // malus will apply if overreach
