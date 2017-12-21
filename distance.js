@@ -56,9 +56,9 @@ const generateDistance = () => {
         },
         function (err, data) {
           if (err) return console.log(err);
-          // console.log(data.distanceValue);
-          cityGraph[cityOutter.toString()][cityInner.toString()] = Math.floor(data.distanceValue / 1000);
-          console.log(cityGraph[cityOutter.toString()][cityInner.toString()]);
+          let value = Math.floor(data.distanceValue / 1000);
+          cityGraph[cityOutter.toString()][cityInner.toString()] = value;
+          //console.log(cityGraph[cityOutter.toString()][cityInner.toString()]);
         });
     }
   }

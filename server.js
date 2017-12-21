@@ -53,7 +53,8 @@ app.get('/api', front.docsRequest.bind(front));
 app.get('/algogen', (req, res) => {
   const start = req.query.start;
   const end = req.query.end;
-  const path = algoGen(start, end);
+  console.log(start + ' | ' + end);
+  const path = algoGen(start.toUpperCase(), end.toUpperCase());
 
   res.json(path);
 });
