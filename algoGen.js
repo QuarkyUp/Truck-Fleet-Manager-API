@@ -1,4 +1,4 @@
-const { getCityDistance } = require('./distance');
+const { distanceCity } = require('./distance');
 
 const city = [      // contains the resources to harvest
   {
@@ -39,6 +39,7 @@ const city = [      // contains the resources to harvest
 ];
 // const distances = {};
 
+
 const distances = {
   "borbor": getCityDistance("BORDEAUX", "BORDEAUX"),    // bordeaux
   "borlil": getCityDistance("BORDEAUX", "LILLE"),
@@ -70,6 +71,7 @@ const distances = {
   "toutou": getCityDistance("TOULOUSE", "TOULOUSE")    // Toulouse
 };
 
+
 const limitKM = 3500;           // malus will apply if overreach
 const malusPerHundredKM = 25;   // malus ratio
 let error = Infinity;
@@ -98,6 +100,7 @@ const getDistances = () => {
 }
 
 const algoGen = (depCity, arrCity, errorThreshold = 0.01, maxIteration = 100, nbChromosome = 15, mutationOdd = 0.1) => {
+  console.log(distances);
   const keepParent = Math.round(0.73 * nbChromosome);           // nb of parents to keep at each iteration
 
   // Filling up cities with resources

@@ -2,7 +2,7 @@ const app = require('express')();
 const API = require('json-api');
 const mongoose = require('mongoose');
 const { algoGen, addCity, getCities, getDistances } = require('./algoGen');
-const {generateDistance, getCityDistance} = require ('./distance');
+const {computeDistance} = require ('./distance');
 
 require('dotenv').config();
 
@@ -53,8 +53,8 @@ app.get('/api', front.docsRequest.bind(front));
 app.get('/algogen', (req, res) => {
   const start = req.query.start;
   const end = req.query.end;
-  console.log(start + ' | ' + end);
-  const path = algoGen(start.toUpperCase(), end.toUpperCase());
+  console.log(getDistances());
+  const path = algoGen(start, end);
 
   res.json(path);
 });
@@ -75,7 +75,7 @@ app.use((req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  generateDistance();
+  computeDistance();
   console.log(`Server listening on : ${process.env.BASE_URL}`);
 });
 
