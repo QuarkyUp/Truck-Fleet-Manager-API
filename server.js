@@ -2,6 +2,7 @@ const app = require('express')();
 const API = require('json-api');
 const mongoose = require('mongoose');
 const { algoGen, addCity, getCities, getDistances } = require('./algoGen');
+const {generateDistance, getCityDistance} = require ('./distance');
 
 require('dotenv').config();
 
@@ -73,6 +74,7 @@ app.use((req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
+  generateDistance();
   console.log(`Server listening on : ${process.env.BASE_URL}`);
 });
 

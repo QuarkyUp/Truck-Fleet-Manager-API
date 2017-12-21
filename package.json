@@ -11,6 +11,7 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "express": "*",
+    "google-distance": "^1.0.1",
     "json-api": "*",
     "mongoose": "*"
   },
