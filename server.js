@@ -1,8 +1,8 @@
 const app = require('express')();
 const API = require('json-api');
 const mongoose = require('mongoose');
-const { algoGen, addCity, getCities, getDistances } = require('./algoGen');
-const {computeDistance} = require ('./distance');
+const { algoGen, getDistances, setDistances } = require('./algoGen');
+const { computeDistance, distanceCity } = require('./distance');
 
 require('dotenv').config();
 
@@ -21,9 +21,9 @@ const registryTemplates = {
 
 const adapter = new API.dbAdapters.Mongoose(models);
 const registry = new API.ResourceTypeRegistry(registryTemplates,
-  {dbAdapter: adapter});
+  { dbAdapter: adapter });
 
-const docs = new API.controllers.Documentation(registry, {name: 'Truck API'});
+const docs = new API.controllers.Documentation(registry, { name: 'Truck API' });
 const controller = new API.controllers.API(registry);
 const front = new API.httpStrategies.Express(controller, docs);
 
@@ -55,27 +55,28 @@ app.get('/algogen', (req, res) => {
   const end = req.query.end;
   console.log(getDistances());
   const path = algoGen(start, end);
-
+  
   res.json(path);
 });
 
 app.route(`/api/:type(${db.join('|')})`).get(apiReqHandler).post(apiReqHandler)
-  .patch(apiReqHandler);
+.patch(apiReqHandler);
 
 app.route(`/api/:type(${db.join('|')})/:id`).get(apiReqHandler)
-  .patch(apiReqHandler)
-  .delete(apiReqHandler);
+.patch(apiReqHandler)
+.delete(apiReqHandler);
 
 app.route(`/api/:type(${db.join('|')})/:id/relationships/:relationship`)
-  .get(apiReqHandler).post(apiReqHandler).patch(apiReqHandler)
-  .delete(apiReqHandler);
+.get(apiReqHandler).post(apiReqHandler).patch(apiReqHandler)
+.delete(apiReqHandler);
 
 app.use((req, res) => {
   front.sendError(new APIError(404, undefined, 'Not Found'), req, res);
 });
 
-app.listen(process.env.PORT, () => {
-  computeDistance();
+app.listen(process.env.PORT, async () => {
+  await computeDistance();
+  setDistances();
   console.log(`Server listening on : ${process.env.BASE_URL}`);
 });
 

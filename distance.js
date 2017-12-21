@@ -75,9 +75,6 @@ const getCityDistance = (origin, destination) => {
   return cityGraph[origin.toString().toUpperCase()][destination.toString().toUpperCase()];
 };
 
-
-
-
 const city = [
   'BORDEAUX',
   'PARIS',
@@ -93,7 +90,7 @@ const distanceCity = {};
 const computeDistance = async () => {
   city.sort();
   for (let i = 0; i < city.length; i++) {
-    for (let x = i; x  < city.length ; x++) {
+    for (let x = i; x < city.length; x++) {
       let left = city[i].substring(0, 3).toLowerCase();
       let right = city[x].substring(0, 3).toLowerCase();
 
@@ -112,4 +109,4 @@ const getAPIDistance = (origin, destination) => {
     })
 };
 
-module.exports = { computeDistance, distanceCity};
+module.exports = { computeDistance, distanceCity };

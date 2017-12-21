@@ -37,40 +37,8 @@ const city = [      // contains the resources to harvest
     "isHarvested": false
   }
 ];
-// const distances = {};
 
-
-const distances = {
-  "borbor": getCityDistance("BORDEAUX", "BORDEAUX"),    // bordeaux
-  "borlil": getCityDistance("BORDEAUX", "LILLE"),
-  "borlyo": getCityDistance("BORDEAUX", "LYON"),
-  "bormar": getCityDistance("BORDEAUX", "MARSEILLE"),
-  "bornan": getCityDistance("BORDEAUX", "NANTES"),
-  "borpar": getCityDistance("BORDEAUX", "PARIS"),
-  "bortou": getCityDistance("BORDEAUX", "TOULOUSE"),
-  "lillil": getCityDistance("LILLE", "LILLE"),    // lille
-  "lillyo": getCityDistance("LILLE", "LYON"),
-  "lilmar": getCityDistance("LILLE", "MARSEILLE"),
-  "lilnan": getCityDistance("LILLE", "NANTES"),
-  "lilpar": getCityDistance("LILLE", "PARIS"),
-  "liltou": getCityDistance("LILLE", "TOULOUSE"),
-  "lyolyo": getCityDistance("LYON", "LYON"),    // Lyon
-  "lyomar": getCityDistance("LYON", "MARSEILLE"),
-  "lyonan": getCityDistance("LYON", "NANTES"),
-  "lyopar": getCityDistance("LYON", "PARIS"),
-  "lyotou": getCityDistance("LYON", "TOULOUSE"),
-  "marmar": getCityDistance("MARSEILLE", "MARSEILLE"),    // Marseille
-  "marnan": getCityDistance("MARSEILLE", "NANTES"),
-  "marpar": getCityDistance("MARSEILLE", "PARIS"),
-  "martou": getCityDistance("MARSEILLE", "TOULOUSE"),
-  "nannan": getCityDistance("NANTES", "NANTES"),    // Nantes
-  "nanpar": getCityDistance("NANTES", "PARIS"),
-  "nantou": getCityDistance("NANTES", "TOULOUSE"),
-  "parpar": getCityDistance("PARIS", "PARIS"),    // Paris
-  "partou": getCityDistance("PARIS", "TOULOUSE"),
-  "toutou": getCityDistance("TOULOUSE", "TOULOUSE")    // Toulouse
-};
-
+let distances = {};
 
 const limitKM = 3500;           // malus will apply if overreach
 const malusPerHundredKM = 25;   // malus ratio
@@ -81,26 +49,19 @@ const maxChromosomeLength = 20;
 const minChromosomeLength = 2;
 let finalScore = [];
 let finalDistance = [];
-/* 
-const addCity = (newCity, distances) => {
-  if(newCity.hasOwnProperty('name') && newCity.hasOwnProperty('resources') && newCity.hasOwnProperty('isHarvested')) {
-      if (typeof newCity.name === 'string' && typeof newCity.resources === 'number' && typeof newCity.isHarvested === 'boolean') {
-          city.push(newCity);
-      }
-  }
-  console.log(city);
-}
 
-const getCities = () => {
-  return city.map(a => a.name);
-}
-*/
 const getDistances = () => {
   return distances;
 }
 
+const setDistances = () => {
+  distances = distanceCity;
+}
+
 const algoGen = (depCity, arrCity, errorThreshold = 0.01, maxIteration = 100, nbChromosome = 15, mutationOdd = 0.1) => {
-  console.log(distances);
+  depCity = depCity.toLocaleUpperCase();
+  arrCity = arrCity.toLocaleUpperCase();
+  
   const keepParent = Math.round(0.73 * nbChromosome);           // nb of parents to keep at each iteration
 
   // Filling up cities with resources
@@ -273,4 +234,4 @@ const algoGen = (depCity, arrCity, errorThreshold = 0.01, maxIteration = 100, nb
 }
 
 
-module.exports = { algoGen, getDistances };
+module.exports = { algoGen, getDistances, setDistances };
