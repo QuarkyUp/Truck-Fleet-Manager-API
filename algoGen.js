@@ -1,6 +1,6 @@
 const { distanceCity } = require('./distance');
 
-const city = [      // contains the resources to harvest
+let city = [      // contains the resources to harvest
   {
     "name": 'BORDEAUX',
     "resources": 0,
@@ -40,7 +40,8 @@ const city = [      // contains the resources to harvest
 
 let distances = {};
 
-const limitKM = 3500;           // malus will apply if overreach
+
+const limitKM = 3000;           // malus will apply if overreach
 const malusPerHundredKM = 25;   // malus ratio
 let error = Infinity;
 const arrAvgOldScore = [];
@@ -58,10 +59,18 @@ const setDistances = () => {
   distances = distanceCity;
 }
 
+/* const setDistances = (dist) => {
+  distances = dist;
+} */
+
+const setCity = () => {
+  city = [];
+}
+
 const algoGen = (depCity, arrCity, errorThreshold = 0.01, maxIteration = 100, nbChromosome = 15, mutationOdd = 0.1) => {
   depCity = depCity.toLocaleUpperCase();
   arrCity = arrCity.toLocaleUpperCase();
-  
+
   const keepParent = Math.round(0.73 * nbChromosome);           // nb of parents to keep at each iteration
 
   // Filling up cities with resources
@@ -76,7 +85,11 @@ const algoGen = (depCity, arrCity, errorThreshold = 0.01, maxIteration = 100, nb
     const trisomie = [];
     const rndLength = minChromosomeLength + Math.random() * (maxChromosomeLength - minChromosomeLength) - 1;
     for (let x = 0; x < rndLength; x++) {
-      trisomie.push(Math.floor(Math.random() * city.length));
+      let simba = Math.floor(Math.random() * city.length);
+      while (x > 0 && simba === trisomie[x - 1]) {
+        simba = Math.floor(Math.random() * city.length);
+      }
+      trisomie.push(simba);
     }
     trisomie.push(city.findIndex(jpp => jpp.name === arrCity));
     arrChromosomes.push(trisomie);
@@ -144,6 +157,36 @@ const algoGen = (depCity, arrCity, errorThreshold = 0.01, maxIteration = 100, nb
     /*******************************************/
     arrChildren.forEach(child => arrChromosomes.push(child));
 
+    /*******************************************/
+    /*** Checking chromosomes for repetition ***/
+    /*******************************************/
+    // rules are :
+    arrChromosomes.forEach(chromo => {
+      // 1. never the same city twice in a row
+      if (chromo[0] === city.findIndex(prout => prout.name === depCity)) {
+        chromo = chromo.slice(1);
+      }
+      for (let i = 1; i < chromo.length - 1; i++) {
+        while (chromo[i - 1] === chromo[i] || chromo[i] === chromo [i + 1]) {
+          chromo[i] = Math.floor(Math.random() * city.length);
+        }
+      }
+
+      // 2. no more than twice the same city in a chromosome
+      const distinctValueInChromo = [...new Set(chromo)];
+      for (let i = 0; i < distinctValueInChromo.length; i++) {
+        const redundantValue = distinctValueInChromo[i];
+        let occurence = chromo.reduce((a, v) => (v === redundantValue) ? a + 1 : a, 0);
+        while (occurence > 2) {
+          const idxOccurence = chromo.indexOf(redundantValue);
+          const temp = [];
+          chromo.filter((v, i) => (idxOccurence !== i) ? temp.push(v) : v);
+          chromo = temp;
+          occurence = chromo.reduce((a, v) => (v === redundantValue) ? a + 1 : a, 0);
+        }
+      }
+    });
+    
     /*******************************************/
     /****** Compute scores of chromosomes ******/
     /*******************************************/
@@ -234,4 +277,4 @@ const algoGen = (depCity, arrCity, errorThreshold = 0.01, maxIteration = 100, nb
 }
 
 
-module.exports = { algoGen, getDistances, setDistances };
+module.exports = { algoGen, getDistances, setDistances, setCity };
