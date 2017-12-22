@@ -59,6 +59,16 @@ app.get('/algogen', (req, res) => {
   res.json(path);
 });
 
+app.get('/getTrucks', (req, res) => {
+  const ret =
+    {
+      truck1: ['END', 'START'],
+      truck2: ['END', 'START'],
+      truck3: ['END', 'START']
+    };
+  res.json(ret);
+});
+
 app.route(`/api/:type(${db.join('|')})`).get(apiReqHandler).post(apiReqHandler)
 .patch(apiReqHandler);
 
